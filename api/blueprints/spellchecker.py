@@ -1,20 +1,19 @@
-#################
-#### imports ####
-#################
-from datetime import datetime
-import logging
-
-from flask import Blueprint, Flask, json, jsonify, render_template, request, url_for, make_response
-from flask import current_app
-from flasgger import Swagger
+from flask import Blueprint, jsonify, make_response, request
 from flask_api import status    # HTTP Status Codes
-from werkzeug.local import LocalProxy
-from utils.words import spellcheck, word_found
+from utils.words import spellcheck, word_found, in_legitimate_format
 
 
 spell_blueprint = Blueprint('spell', __name__, template_folder='templates')
 
-logger = LocalProxy(lambda: current_app.logger)
+
+@spell_blueprint.route("/")
+def index():
+    """ Home Page """
+    return make_response(jsonify(name='Spellchecker REST API Service',
+                                 version='1.0',
+                                 docs=request.base_url + 'apidocs/index.html'), 
+                         status.HTTP_200_OK)
+
 
 @spell_blueprint.route("/spell/<string:word>", methods=['GET'])
 def check_spelling(word):
@@ -38,17 +37,15 @@ def check_spelling(word):
       200:
         description: A list of suggestions and word found status
     """
-        
-    found, suggestions = spellcheck(word)
-    result = {"suggestions":suggestions, "correct": found}
+    correct, suggestions = spellcheck(word)
 
-    # Return 200 if word is not suggested (it was found) or suggested and misspeled
-    if not suggestions or word_found(word, suggestions):
-        response_status = status.HTTP_200_OK
+    # Check if the word is capital case or all upper case but still found
+    if word_found(word, suggestions) and in_legitimate_format(word):
+        suggestions = []
+    if not suggestions and not correct:
+        response_status = status.HTTP_404_NOT_FOUND
     else:
-        response_status = status.HTTP_400_BAD_REQUEST
-                   
+        response_status = status.HTTP_200_OK
+
+    result = {"suggestions": suggestions, "correct": correct}
     return make_response(jsonify(result), response_status)
-
-
-
