@@ -26,7 +26,7 @@ Then, run unit tests
 # This covers the following test cases:
 
  ```test_get_route__failure__not_found``` 
-  * This test is used to verify the word that was not found and not suggested returns 404.
+  * This test is used to verify the word that was not found and not suggested like `asymptomaticcase`, returns 404.
 
  ```test_get_route__success__capitalized```
   * This test is used to verify the words like `Car` get properly recognized and processed.
@@ -40,7 +40,7 @@ Then, run unit tests
  ```test_get_route__success__missing_vowel```
   * This test is used to identify and suggest words that have missing vowels like abndonmnt. 
 
- ```test_get_route__failure__mixed```
+ ```test_get_route__success__mixed```
   * This test is used to identify and suggest mixed cases of missing vowels, repeated non-vowels or mixed cases like `bllllLLlln`.
 
  ```test_base_route```
