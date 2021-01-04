@@ -1,0 +1,14 @@
+#Python
+*.swp
+.swp
+static
+media
+.pyc
+*.pyc
+__pycache__
+*.*old*
+# dependencies
+**/node_modules
+# roadhog-api-doc ignore
+/src/utils/request-temp.js
+_roadhog-api-doc

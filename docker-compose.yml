@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: ${PROJECT_NAME}_api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+     - "31337:31337"
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - './api/:/usr/app'
+      - './resources:/resources'
+  redis:
+    container_name: ${PROJECT_NAME}_redis
+    image: redis
+    env_file:
+      - .env
+
+volumes:
+  redis-data:
