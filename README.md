@@ -2,16 +2,20 @@
 
 ## Running Service
 
-To start service, run 
-
+To build and start the service, run 
 ```bash
-docker-compose up -d --scale worker=5 --no-recreate
+docker-compose up --build 
+```
+
+If you'd like to run in detached mode, run
+```bash
+docker-compose up -d 
 ```
 
 
 ## Running Tests
 
-To run unit tests, first enter into container
+To run unit tests within, first enter the container
 
 ```bash
  docker exec -it spellchecker_api bash
@@ -22,6 +26,8 @@ Then, run unit tests
 ```bash
  pytest pytest tests/test_endpoint.py
 ```
+
+All 8 tests should succeed.
 
 ### This covers the following test cases:
 
