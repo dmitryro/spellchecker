@@ -58,8 +58,8 @@ All 8 tests should succeed.
  ```test_get_route__success__invalid_case```
   * This test is used to verify and process words having invalid capitalization in their letters, like `caR`. Returns 200 and suggested correct spelling`.
 
-
-* For the sake of this problem we consider a word not to be found if it's neither located in dictionary nor suggested like `asymptomaticcase`.
+### For the sake of this problem
+  * We consider a word not to be found if it's neither located in dictionary nor suggested like `asymptomaticcase`.
 
 ## Calling backend
 
