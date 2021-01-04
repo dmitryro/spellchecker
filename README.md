@@ -95,4 +95,13 @@ http://0.0.0.0:31337/apidocs
 ```
 
 
+### Environment Variables used to set environment-specific values
+* ```PROJECT_NAME```  - your project name to be used with ```docker-compose.yml``.
+* ```DICT_PATH``` - the location of dictionary file.
+* ```FLASK_HOST``` - The host used with the API.
+* ```FLASK_PORT``` - The port used with the API.
+* ```WORKERS``` - The number of ```gunicorn``` workers to run.
+* ```TIMEOUT``` - The ```gunicorn``` timeout to be used.
+* ```LOG_LEVEL``` - The default log level is set to ```DEBUG```. In production set ```INFO```.
 
+The ```.env``` file contains the default values used with the project.
