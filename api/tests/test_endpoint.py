@@ -89,6 +89,18 @@ def test_get_route__success__mixed():
     assert response.status_code == 200
 
 
+def test_get_route__success__invalid_case():
+    """ Test case for the word that was not found """
+    f_app = app.create_app()
+    client = f_app.test_client()
+    url = '/spell/caR'
+    response = client.get(url)
+    data = json.loads(response.get_data(as_text=True))
+    assert data['correct'] == False
+    assert len(data["suggestions"]) > 0
+    assert response.status_code == 200
+
+
 def test_get_route__failure__not_found():
     """ Test case for the word that was not found """
     f_app = app.create_app()
