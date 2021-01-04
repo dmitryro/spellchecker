@@ -1,6 +1,12 @@
 version: '3.7'
 
 services:
+  redis:
+    container_name: ${PROJECT_NAME}_redis
+    image: redis
+    env_file:
+      - .env
+
   api:
     container_name: ${PROJECT_NAME}_api
     build:
@@ -16,3 +22,8 @@ services:
     volumes:
       - './api/:/usr/app'
       - './resources:/resources'
+    links:
+      - redis
+
+volumes:
+  redis-data:
