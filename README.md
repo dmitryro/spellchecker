@@ -1,6 +1,6 @@
 # SpellChecker API
 
-### Running Service
+## Running Service
 
 To start service, run 
 
@@ -9,7 +9,7 @@ docker-compose up -d --scale worker=5 --no-recreate
 ```
 
 
-### Running Tests
+## Running Tests
 
 To run unit tests, first enter into container
 
@@ -23,7 +23,7 @@ Then, run unit tests
  pytest pytest tests/test_endpoint.py
 ```
 
-# This covers the following test cases:
+### This covers the following test cases:
 
  ```test_get_route__failure__not_found``` 
   * This test is used to verify the word that was not found and not suggested like `asymptomaticcase`, returns 404.
@@ -49,11 +49,11 @@ Then, run unit tests
  ```test_get_route__success```
   * This test is used to verify and process words that exist as is in the dictionary, like `car`.
 
-# For the sake of this problem we consider a word not to be found if it's neither located in dictionary nor suggested like `asymptomaticcase`.
+* For the sake of this problem we consider a word not to be found if it's neither located in dictionary nor suggested like `asymptomaticcase`.
 
-### Calling backend
+## Calling backend
 
-To hit the endpoint, in a browser, Postman or any other app navigate to
+To hit the endpoint, in a browser, in Postman or using curl in termninal hit:
 
 ```
 http://0.0.0.0:31337/spell/CAR
@@ -70,7 +70,7 @@ http://0.0.0.0:31337/spell/crrr
 You should be getting `400` and a list of suggestions.
 
 
-### Using Swagger
+## Using Swagger
 
 To explore the API using swagger, navigate to
 
