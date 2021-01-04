@@ -16,11 +16,3 @@ services:
     volumes:
       - './api/:/usr/app'
       - './resources:/resources'
-  redis:
-    container_name: ${PROJECT_NAME}_redis
-    image: redis
-    env_file:
-      - .env
-
-volumes:
-  redis-data:
