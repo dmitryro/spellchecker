@@ -82,13 +82,6 @@ def internal_error(e):
     return make_response(jsonify(status=500, error='Internal Server Error',
                                  message='Huston... we have a problem.'), status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@app.route("/")
-def index():
-    """ Home Page """
-    return jsonify(name='Spellchecker REST API Service',
-                   version='1.0',
-                   docs=request.base_url + 'apidocs/index.html'), status.HTTP_200_OK
-
 
 ######################################################################
 #   M A I N

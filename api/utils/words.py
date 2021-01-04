@@ -10,9 +10,18 @@ def is_vowel(w):
 
 
 def word_found(word, words):
-     lowered = [w.lower() for w in words]
-     if word.lower() in lowered:
+     if word in words:
          return True
+        
+     if word.lower() in words:
+         return True
+        
+     if word.capitalize() in words:
+         return True
+        
+     if word.upper() in words:
+         return True
+
      return False
 
 
@@ -61,28 +70,15 @@ def is_missing_vowel(missing):
 
 def is_subword(checked, original):
     """ Use this to identify if one word is subword of another """
-    missing = []
     issubword = False
 
     if checked == original:
-        return True, missing 
+        return True
     else:
-        if has_non_vowel_overlap(checked, original):# and not has_missing_non_vowels(checked, original):              
-                  
-            for i in checked:
-                      
-                if not is_vowel(i) and checked.count(i) > original.count(i):
-                    return False, []
-  
-                  
-                for index, i in enumerate(original):
-                    if is_vowel(i):# and i not in checked:
-                         missing.append(i)
-                  
-            if len(missing) < len(checked):
-                issubword = True
-     
-    return issubword, missing
+        if has_non_vowel_overlap(checked, original): 
+            return True
+      
+    return issubword
 
      
 def has_missing_vowel(word, words):
@@ -90,11 +86,9 @@ def has_missing_vowel(word, words):
     has_missing = False
     suggestions = []
     for w in words:
-        s, m = is_subword(word, w)
-        if s and not m:
-             return []
+        s = is_subword(word, w)
 
-        if s and word != w:
+        if s: # and word != w:
             suggestions.append(w)
     return suggestions
 
@@ -104,9 +98,24 @@ def all_uppercase(w):
     return w.upper() == w
 
 
+def all_lowercase(w):
+    """ Helper to very the word is in lower case """
+    return w.lower() == w 
+
+
 def is_capitalized(w):
     """ Helper to verify the word is capitalized """
     return w.capitalize() == w
+
+
+def in_legitimate_format(w):
+    """ Check if the word is capitalized or all upper case """
+    if is_capitalized(w) or all_uppercase(w):
+        return True
+    elif all_lowercase(w):
+        return True
+    return False    
+
 
 def has_repeated_characters(word, words):
 
@@ -156,27 +165,45 @@ def spellcheck(word):
     with open(read_env("DICT_PATH")) as f:
         words = [i[:-1] for i in f.readlines()]
 
+    # Check if the actual word as is in vocabulary
+    if word_found(word, words):
+        return True, []
+
     # The mixed case
     combinations = has_combination(word, words)
     if combinations:
         return False, combinations
-    
 
     # The missing vowel case
     mv_suggestions = has_missing_vowel(word, words)
     if mv_suggestions:
         return False, mv_suggestions
 
-    
     # The repeated character case
     rc_suggestions = has_repeated_characters(word, words)
     if rc_suggestions:
         return False, rc_suggestions
 
+
     # The mixed casing case
     mc_suggestions = has_mixed_casing(word, words)
     if mc_suggestions:
+
+        if word_found(word, mc_suggestions):
+            return True, []
+
         return False, mc_suggestions
+
+    # Word is in vocabulary and has legit case
+    if in_legitimate_format(word):
+        if word_found(word, words):
+            return True, []
+
+
+    # By now we only want to report as found th words that relate to vocabulary
+    if not word_found(word, words):
+        return False, []
 
     return True, [] 
 
+print(spellcheck('car'))
