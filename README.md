@@ -49,6 +49,7 @@ Then, run unit tests
  ```test_get_route__success```
   * This test is used to verify and process words that exist as is in the dictionary, like `car`.
 
+# For the sake of this problem we consider a word not to be found if it's neither located in dictionary nor suggested like `asymptomaticcase`.
 
 ### Calling backend
 

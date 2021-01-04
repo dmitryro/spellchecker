@@ -206,4 +206,3 @@ def spellcheck(word):
 
     return True, [] 
 
-print(spellcheck('car'))
