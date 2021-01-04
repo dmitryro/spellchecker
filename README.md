@@ -73,8 +73,13 @@ If, for example, you navigate to
 http://0.0.0.0:31337/spell/crrr
 ```
 
-You should be getting `400` and a list of suggestions.
+You should be getting `200` and a list of suggestions.
 
+For a word that can't be neither found nor suggested, you'll get `400`, for example using
+
+```
+http://0.0.0.0.31337/spell/asymptomaticcase
+```
 
 ## Using Swagger
 
